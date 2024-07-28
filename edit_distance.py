@@ -21,8 +21,6 @@ def compute_dl_distance(a, b):
         matrix[0][j] = j
 
     for i in range(1, len_a + 1):
-        i: int
-        j: int
         for j in range(1, len_b + 1):
             cost = 0 if a[i - 1] == b[j - 1] else 1
             matrix[i][j] = min(
