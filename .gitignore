@@ -20,6 +20,7 @@ parts/
 sdist/
 var/
 wheels/
+datasets/
 share/python-wheels/
 *.egg-info/
 .installed.cfg
@@ -40,6 +41,7 @@ pip-delete-this-directory.txt
 htmlcov/
 .tox/
 .nox/
+.idea/
 .coverage
 .coverage.*
 .cache
