@@ -1,2 +1,2 @@
 numpy
-dotenv-python
+python-dotenv

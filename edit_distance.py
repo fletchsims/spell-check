@@ -69,6 +69,19 @@ class EditDistance:
                     )
         return matrix[-1][-1]
 
+    def compute_hamming_distance(self, s1: Sequence[T], s2: Sequence[T]) -> int:
+        """Compute the Hamming Distance between two strings.
+
+        https://en.wikipedia.org/wiki/Hamming_distance
+        """
+        if len(s1) != len(s2):
+            raise ValueError("Strings must have equal length")
+        distance = 0
+        for i in range(len(s1)):
+            if s1[i] != s2[i]:
+                distance += 1
+        return distance
+
 
 edit = EditDistance()
 
@@ -91,7 +104,7 @@ dictWordDist = []
 wordIdx = 0
 
 for line in lines:
-    wordDistance = edit.compute_damerau_levenshtein_distance('COLUMBIA', line.strip())
+    wordDistance = edit.compute_damerau_levenshtein_distance('UNITED KINDOM', line.strip())
     if wordDistance >= 10:
         wordDistance = 9
     dictWordDist.append(str(int(wordDistance)) + "-" + line.strip())
@@ -101,7 +114,7 @@ closestWords = []
 wordDetails = []
 currWordDist = 0
 dictWordDist.sort()
-# print(dictWordDist)
+print(dictWordDist)
 for i in range(3):
     currWordDist = dictWordDist[i]
     wordDetails = currWordDist.split("-")
