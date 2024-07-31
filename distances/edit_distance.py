@@ -1,3 +1,4 @@
+from math import floor
 import os
 from typing import Sequence, TypeVar
 
@@ -37,7 +38,6 @@ class EditDistance:
                     matrix[i - 1][j - 1] + cost  # Substitution
                 )
         return matrix[-1][-1]
-
 
     def compute_damerau_levenshtein_distance(self, s1: Sequence[T], s2: Sequence[T]) -> int:
         """Compute the Damerau-Levenshtein distance between two strings.
@@ -82,43 +82,69 @@ class EditDistance:
                 distance += 1
         return distance
 
+    def compute_jaro_similarity(self, s1: Sequence[T], s2: Sequence[T]) -> int:
+        """Compute Jaro Similarity between two strings.
 
-edit = EditDistance()
+        https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance
+        """
+        if len(s1) != len(s2):
+            raise ValueError("Strings must have equal length.")
+        if s1 == s2:
+            return 1
+
+        max_distance = floor((max(len(s1), len(s2)) / 2) - 1)
+        m = 0
+        for i in range(len(s1)):
+            for j in range(max(0, i - max_distance), min(len(s2)))
+        return m
 
 
-def spell_check(word):
-    with open(os.getenv('PATH_TO_DATA'), 'r') as f:
-        lines = f.readlines()
-    for line in lines:
-        word_distance = edit.compute_damerau_levenshtein_distance('COLOMBIA', line.strip())
+
+    def compute_jaro_winkler_similarity(self, s1: Sequence[T], s2: Sequence[T]) -> int:
+        """Compute Jaro Winkler Similarity between two strings.
+
+        https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance
+        """
+        pass
 
 
-a = 'COLOMBIA'
-b = 'COLUMBIA'
-print(edit.compute_damerau_levenshtein_distance(a, b))
-
-with open(os.getenv('PATH_TO_DATA'), 'r') as f:
-    lines = f.readlines()
-
-dictWordDist = []
-wordIdx = 0
-
-for line in lines:
-    wordDistance = edit.compute_damerau_levenshtein_distance('UNITED KINDOM', line.strip())
-    if wordDistance >= 10:
-        wordDistance = 9
-    dictWordDist.append(str(int(wordDistance)) + "-" + line.strip())
-    wordIdx = wordIdx + 1
-
-closestWords = []
-wordDetails = []
-currWordDist = 0
-dictWordDist.sort()
-print(dictWordDist)
-for i in range(3):
-    currWordDist = dictWordDist[i]
-    wordDetails = currWordDist.split("-")
-    closestWords.append(wordDetails[1])
-
-print(closestWords)
-print(wordDetails)
+# edit = EditDistance()
+# print(edit.compute_jaro_similarity("abcd", "abc"))
+#
+#
+# def spell_check(word):
+#     with open(os.getenv('PATH_TO_DATA'), 'r') as f:
+#         lines = f.readlines()
+#     for line in lines:
+#         word_distance = edit.compute_damerau_levenshtein_distance('COLOMBIA', line.strip())
+#
+#
+# a = 'COLOMBIA'
+# b = 'COLUMBIA'
+# print(edit.compute_damerau_levenshtein_distance(a, b))
+#
+# with open(os.getenv('PATH_TO_DATA'), 'r') as f:
+#     lines = f.readlines()
+#
+# dictWordDist = []
+# wordIdx = 0
+#
+# for line in lines:
+#     wordDistance = edit.compute_damerau_levenshtein_distance('UNITED KINDOM', line.strip())
+#     if wordDistance >= 10:
+#         wordDistance = 9
+#     dictWordDist.append(str(int(wordDistance)) + "-" + line.strip())
+#     wordIdx = wordIdx + 1
+#
+# closestWords = []
+# wordDetails = []
+# currWordDist = 0
+# dictWordDist.sort()
+# print(dictWordDist)
+# for i in range(3):
+#     currWordDist = dictWordDist[i]
+#     wordDetails = currWordDist.split("-")
+#     closestWords.append(wordDetails[1])
+#
+# print(closestWords)
+# print(wordDetails)
