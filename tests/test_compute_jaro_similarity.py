@@ -5,5 +5,5 @@ edit = EditDistance()
 
 
 def test_compute_jaro_similarity():
-    assert edit.compute_jaro_similarity('FARMS', 'FARMR') == 4
+    assert edit.compute_jaro_similarity('DWAYNE', 'DUANE') == 4
     # FAREMVIEL # FARMVILLE
